@@ -7,10 +7,7 @@ import com.yan.user.Entity.User;
 import com.yan.user.utils.Mapper1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,13 +17,13 @@ import java.util.List;
  * Created by yanwenbo on 2017-09-18.
  */
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value="/login")
 public class ServiceImp implements service,Serializable{
 
     @Autowired
     private Mapper1 mapper1;
 
-    @RequestMapping(value = "/getUserByID/{id}")
+    @RequestMapping(value = "/getUserByID/{id}",method= RequestMethod.GET)
     @Override
     @ResponseBody
     public User getUserByID(@PathVariable(value = "id") String id) {
@@ -36,12 +33,12 @@ public class ServiceImp implements service,Serializable{
     }
 
     @Override
-    @RequestMapping(value="/getAll")
+    @RequestMapping(value="/getUserList",method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUserList() {
+    public ResponseData getUserList() {
         List<User> listUser;
         listUser = mapper1.getAll();
-        return listUser;
+        return new ResponseData(listUser);
     }
 
     public User getUserByName(String name){
@@ -51,7 +48,7 @@ public class ServiceImp implements service,Serializable{
     }
 
     @Override
-    @RequestMapping(value = "/validate")
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData ValidateUser(@RequestBody RequestData requestData){
         String name = requestData.getUsername();
