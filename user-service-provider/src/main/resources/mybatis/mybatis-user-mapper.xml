@@ -3,13 +3,14 @@
 <mapper namespace="com.yan.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.yan.entity.User">
         <id column="id" property="id" javaType="String"></id>
+        <result column="password" property="password" javaType="String"></result>
         <result column="name" property="name" javaType="String"></result>
         <result column="birthday" property="birthday" javaType="Date"></result>
         <result column="phone" property="phone" javaType="String"></result>
         <result column="amount" property="amount" javaType="Double"></result>
     </resultMap>
     <sql id="Base_Column_List">
-        id,name,birthday,phone,amount
+        id,name,password,birthday,phone,amount
     </sql>
     <select id="selectByID" resultMap="BaseResultMap">
         select
@@ -17,15 +18,21 @@
         from user_message
         where id=#{id,jdbcType=VARCHAR}
     </select>
+    <select id="selectUserByName" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM user_message
+        WHERE name=#{name,jdbcType=VARCHAR}
+    </select>
     <select id="selectUserList" resultMap="BaseResultMap">
         SELECT
             <include refid="Base_Column_List"></include>
         FROM user_message
     </select>
     <insert id="insert" parameterType="com.yan.entity.User">
-        insert into user_message (id,name,birthday,phone,amount)
+        insert into user_message (id,name,birthday,phone,amount,password)
         values (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},
-            #{phone,jdbcType=VARCHAR},#{amount,jdbcType=DOUBLE})
+            #{phone,jdbcType=VARCHAR},#{amount,jdbcType=DOUBLE},#{password,jdbcType=VARCHAR})
     </insert>
     <select id="countByUser" resultType="java.lang.Integer">
         SELECT count(*) FROM user_message
@@ -49,7 +56,10 @@
               phone=#{phone,jdbcType=VARCHAR},
             </if>
             <if test="amount!=null">
-              amount=#{amount,jdbcType=DOUBLE}
+              amount=#{amount,jdbcType=DOUBLE},
+            </if>
+            <if test="#{password,jdbcType=VARCHAR}">
+                password=#{password,jdbcType=VARCHAR}
             </if>
         </set>
     </update>

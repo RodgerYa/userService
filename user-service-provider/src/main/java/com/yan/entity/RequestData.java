@@ -9,9 +9,16 @@ import java.util.Date;
  */
 @Data
 public class RequestData {
+
     private String userID;
+
     private String userName;
+
+    private String password;
+
     private String PhoneNumber;
+
     private Date birthday;
+
     private Double amount;
 }

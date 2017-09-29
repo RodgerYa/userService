@@ -1,8 +1,10 @@
 package com.yan.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable{
     private String id;
 
     private String movieName;
@@ -12,6 +14,16 @@ public class Movie {
     private Double price;
 
     private String image;
+
+    private List<Comment> commentList;
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
     public String getId() {
         return id;
@@ -61,6 +73,7 @@ public class Movie {
                 ", releaseDate=" + releaseDate +
                 ", price=" + price +
                 ", image='" + image + '\'' +
+                ", commentList=" + commentList +
                 '}';
     }
 }
