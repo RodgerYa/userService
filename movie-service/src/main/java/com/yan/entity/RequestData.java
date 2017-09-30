@@ -20,6 +20,8 @@ public class RequestData {
 
     private String userName;
 
+    private String userID;
+
     @Override
     public String toString() {
         return "RequestData{" +
@@ -27,6 +29,7 @@ public class RequestData {
                 ", comment='" + comment + '\'' +
                 ", vote=" + vote +
                 ", userName='" + userName + '\'' +
+                ", userID='" + userID + '\'' +
                 '}';
     }
 }

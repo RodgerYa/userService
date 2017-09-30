@@ -1,6 +1,7 @@
 package com.yan.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Movie implements Serializable{
     private List<Comment> commentList;
 
     public List<Comment> getCommentList() {
-        return commentList;
+        return commentList == null? new ArrayList<>():commentList;
     }
 
     public void setCommentList(List<Comment> commentList) {

@@ -3,7 +3,6 @@ package com.yan.service;
 import com.yan.entity.RequestData;
 import com.yan.entity.ResponseData;
 import com.yan.entity.User;
-import com.yan.mapper.CommentMapper;
 import com.yan.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +21,6 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private CommentMapper commentMapper;
 
     @Override
     public User queryUserByID(String id) {

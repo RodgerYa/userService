@@ -5,6 +5,7 @@ import com.yan.mapper.CommentMapper;
 import com.yan.mapper.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +42,10 @@ public class MovieServiceImp implements MovieService {
         System.out.println(movie);
         movie.setImage("/image/"+movie.getImage());
         List<Comment> comments = this.getCommentListByMovieID(id);
-        User user = null;
+        User user = new User();
         for(Comment comment:comments){
             user = userFeignClient.getUserByID(comment.getUserid()).getData().get(0);
+            System.out.println("feignClient query user: "+user);
             comment.setUserName(user.getName());
         }
         movie.setCommentList(comments);
@@ -67,13 +69,23 @@ public class MovieServiceImp implements MovieService {
     }
 
     @Override
+    @Transactional
     public ResponseData addComment(RequestData requestData){
+        if(requestData == null){
+            return null;
+        }
         Movie movie = movieMapper.selectByPrimaryKey(requestData.getMovieID());
-        Comment comment = null;
+        if (movie == null){
+            System.out.println("movie is null!!! ");
+            return null;
+        }
+        Comment comment = new Comment();
         comment.setComment(requestData.getComment());
         comment.setMovieid(requestData.getMovieID());
-        comment.setUserid(requestData.getUserName());
+        comment.setUserid(requestData.getUserID());
         comment.setVote(0);
+
+        commentMapper.insertSelective(comment);
         movie.getCommentList().add(comment);
         movieMapper.updateByPrimaryKey(movie);
         return new ResponseData();

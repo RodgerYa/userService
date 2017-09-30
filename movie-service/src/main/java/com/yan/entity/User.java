@@ -26,6 +26,4 @@ public class User {
 
     private Double amount;
 
-    private Comment comment;
-
 }
