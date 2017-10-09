@@ -1,7 +1,5 @@
 package com.yan.utils;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,11 +10,11 @@ public class DateUtil {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-    public static Date format(Date time) {
+    public static Date format(String time) {
         Date date = null;
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
-            date = simpleDateFormat.parse(time.toString());
+            date = simpleDateFormat.parse(time);
         } catch(Exception ex) {
             ex.printStackTrace();
         }

@@ -22,4 +22,6 @@ public interface MovieService {
     public ResponseData addComment(RequestData requestData);
 
     public List<Comment> getCommentListByMovieID(String movieID);
+
+    public ResponseData getMovieByExample(RequestData requestData);
 }

@@ -1,5 +1,6 @@
 package com.yan.controller;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import com.yan.entity.Movie;
 import com.yan.entity.RequestData;
 import com.yan.entity.ResponseData;
@@ -21,20 +22,32 @@ public class MovieController {
 
     @RequestMapping(value = "/getMovieList")
     @ResponseBody
-    public ResponseData query(){
+    public ResponseData<Movie> queryAll(){
         return this.movieService.getMovieList();
     }
 
     @RequestMapping(value = "/getMovieByID/{id}")
     @ResponseBody
-    public ResponseData queryByID(@PathVariable(value = "id") String id){
+    public ResponseData<Movie> queryByID(@PathVariable(value = "id") String id){
         return this.movieService.getMovieByID(id);
     }
 
     @RequestMapping(value = "/addComment")
     @ResponseBody
-    public ResponseData addComment(@RequestBody RequestData requestData){
+    public ResponseData<Movie> addComment(@RequestBody RequestData requestData){
          return this.movieService.addComment(requestData);
+    }
+
+    @RequestMapping(value = "/getMovieByExample")
+    @ResponseBody
+    public ResponseData<Movie> queryMovieByExample(@RequestBody RequestData requestData){
+        return this.movieService.getMovieByExample(requestData);
+    }
+
+    @GetMapping(value = "/searchMovie")
+    @ResponseBody
+    public ResponseData<Movie> queryMovie(@RequestBody RequestData requestData){
+        return null;
     }
 
 }
